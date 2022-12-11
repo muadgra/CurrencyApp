@@ -33,6 +33,7 @@
     "cache-manager": "^4.0.0",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.13.2",
+    "joi": "^17.7.0",
     "kafkajs": "^2.2.2",
     "mongoose": "^6.7.3",
     "pactum": "^3.2.4",

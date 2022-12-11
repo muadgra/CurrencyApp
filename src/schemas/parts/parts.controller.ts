@@ -1,4 +1,5 @@
-import { Controller, Post, Body, ParseIntPipe, Get, UseInterceptors, CacheInterceptor, CacheTTL } from "@nestjs/common";
+import { Controller, Post, Body,  Get } from "@nestjs/common";
+import { ValidationPipe } from "src/customPipes/validation.pipe";
 import { Part } from "./Part";
 import { CreatePartDto } from "./parts.service";
 import { PartsService } from "./parts.service";
@@ -11,8 +12,8 @@ export class PartController{
 
 
     @Post('create')
-    signup(@Body() dto: CreatePartDto): Promise<Part>{
-        console.log(dto);
+    signup(@Body(new ValidationPipe()) dto: CreatePartDto): Promise<Part>{
+        
         return this.partService.create({
                 code: undefined,
                 name: dto.name, 

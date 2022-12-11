@@ -1,11 +1,10 @@
-import { CacheModule, Module } from '@nestjs/common';
+import { CacheModule, Module, ValidationPipe } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { PartsModule } from './schemas/parts/parts.module';
-import { PartsService } from './schemas/parts/parts.service';
-import { ConfigService } from './config/config.service';
+import { APP_PIPE } from '@nestjs/core';
 
 @Module({
   imports: [
@@ -16,5 +15,11 @@ import { ConfigService } from './config/config.service';
     MongooseModule.forRoot('mongodb://localhost/part'),
     CacheModule.register({ isGlobal: true })
   ],
+  providers: [
+    {
+      provide: APP_PIPE,
+      useClass: ValidationPipe,
+    },
+  ]
 })
 export class AppModule {}

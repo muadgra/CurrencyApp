@@ -1,6 +1,6 @@
 import { CACHE_MANAGER, Inject, Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
-import { IsString } from "class-validator";
+import { IsNotEmpty, IsString } from "class-validator";
 import { Model } from "mongoose";
 import { Part, PartDocument } from "./Part";
 import { Cache } from 'cache-manager';
@@ -13,7 +13,6 @@ export class PartsService {
     ) { }
 
     async create(part: Part): Promise<Part> {
-        console.log(part)
         const createdPart = await new this.partModel(part);
         return await createdPart.save();
     }
@@ -36,6 +35,7 @@ export class CreatePartDto{
     @IsString()
     code: string;
     @IsString()
+    @IsNotEmpty()
     name: string;
     @IsString()
     location: string;
