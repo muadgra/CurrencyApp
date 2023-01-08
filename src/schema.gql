@@ -1,0 +1,23 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+input AddTypeDTO {
+  generation: String!
+  name: String!
+}
+
+type Mutation {
+  addModel(dto: AddTypeDTO!): TypeModel!
+}
+
+type Query {
+  customer(code: Float!): TypeModel!
+  types: [TypeModel!]!
+}
+
+type TypeModel {
+  code: Float!
+  generation: String!
+  name: String!
+}

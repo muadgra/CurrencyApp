@@ -1,4 +1,5 @@
-import { Controller, Post, Body,  Get } from "@nestjs/common";
+import { Controller, Post, Body,  Get, UseGuards } from "@nestjs/common";
+import { JwtGuard } from "src/auth/guard";
 import { ValidationPipe } from "src/customPipes/validation.pipe";
 import { Part } from "./Part";
 import { CreatePartDto } from "./parts.service";
@@ -11,8 +12,9 @@ export class PartController{
     }
 
 
+    
     @Post('create')
-    signup(@Body(new ValidationPipe()) dto: CreatePartDto): Promise<Part>{
+    create(@Body(new ValidationPipe()) dto: CreatePartDto): Promise<Part>{
         
         return this.partService.create({
                 code: undefined,
@@ -25,8 +27,9 @@ export class PartController{
     }
     //@UseInterceptors(CacheInterceptor)
     //@CacheTTL(30)
+    @UseGuards(JwtGuard)
     @Get('get')
-    signin(){
+    get(){
         return this.partService.getAll();
     }
 }

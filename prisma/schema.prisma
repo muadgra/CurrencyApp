@@ -19,6 +19,14 @@ model UserInformation {
   @@map("users")
 }
 
+model TypeInformation{
+  code Int @id @default(autoincrement())
+  name String @unique
+  generation String
+
+  @@map("types")
+}
+
 model Item {
   id Int @id @default(autoincrement())
   name String

@@ -5,6 +5,10 @@ import { PrismaModule } from './prisma/prisma.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { PartsModule } from './schemas/parts/parts.module';
 import { APP_PIPE } from '@nestjs/core';
+import { GraphQLModule } from '@nestjs/graphql';
+import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
+import { join } from 'path';
+import { TypeModule } from './schemas/type/type.module';
 
 @Module({
   imports: [
@@ -12,8 +16,15 @@ import { APP_PIPE } from '@nestjs/core';
     ConfigModule.forRoot({ isGlobal: true }),
     PrismaModule,
     PartsModule,
+    TypeModule,
     MongooseModule.forRoot('mongodb://localhost/part'),
-    CacheModule.register({ isGlobal: true })
+    CacheModule.register({ isGlobal: true }),
+    GraphQLModule.forRoot<ApolloDriverConfig>({
+      driver: ApolloDriver,
+      autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
+      sortSchema: true,
+      
+    })
   ],
   providers: [
     {
